@@ -1,4 +1,17 @@
-# Google Sign-In Cordova/PhoneGap Plugin
+# Google Sign-In Cordova/PhoneGap Plugin (updated SDKs)
+
+
+**key changes in this fork:**
+
+*** this is merge of [pr](https://github.com/EddyVerbruggen/cordova-plugin-googleplus/pull/764/files)
+
+* PLAY_SERVICES_VERSION updated from 15.0.1 to 20.3.0
+* PLAY_SERVICES_IDENTITY_VERSION set to 18.0.1
+* GOOGLE_SIGN_IN_VERSION updated from ~> 5.0.2 to ~> 6.2.3
+* GOOGLE_UTILITIES_VERSION updated from ~> 7.2.2 to ~> 7.4
+* GOOGLE_SIGN_IN_VERSION, GOOGLE_UTILITIES_VERSION can now be set via extr variables
+* (!) REMOVED on iOS: isAvailable, trySilentLogin, share_unused
+
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]
@@ -126,6 +139,20 @@ $ cordova plugin add https://github.com/EddyVerbruggen/cordova-plugin-googleplus
 $ cordova prepare
 ```
 
+EXTRA VARIABLES:
+
+If you need to install a specific version of `GoogleSignIn` library using pod you can pass it as a variable.
+This is optional, if this variable is not set the default version will be used.
+```
+--variable GOOGLE_SIGN_IN_VERSION="~> 6.2.3"
+```
+
+If you need to install a specific version of `GoogleUtilities` library using pod you can pass it as a variable.
+This is optional, if this variable is not set the default version will be used.
+```
+--variable GOOGLE_UTILITIES_VERSION="~> 7.4"
+```
+
 IMPORTANT:
 
 * _Please note that `myreversedclientid` is a place holder for the reversed clientId you find in your iOS configuration file. Do not surround this value with quotes. **(iOS only Applications)**_
@@ -183,12 +210,9 @@ document.addEventListener('deviceready', deviceReady, false);
 function deviceReady() {
     //I get called when everything's ready for the plugin to be called!
     console.log('Device is ready!');
-    window.plugins.googleplus.trySilentLogin(...);
+    window.plugins.googleplus.login(...);
 }
 ```
-
-### isAvailable
-3/31/16: This method is no longer required to be checked first. It is kept for code orthoganality.
 
 ### Login
 
@@ -237,31 +261,6 @@ Additional user information is available by use case. Add the scopes needed to t
 On Android, the error callback (third argument) receives an error status code if authentication was not successful. A description of those status codes can be found on Google's android developer website at [GoogleSignInStatusCodes](https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInStatusCodes).
 
 On iOS, the error callback will include an [NSError localizedDescription](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSError_Class/).
-
-### Try silent login
-You can call `trySilentLogin` to check if they're already signed in to the app and sign them in silently if they are.
-
-If it succeeds you will get the same object as the `login` function gets,
-but if it fails it will not show the authentication dialog to the user.
-
-Calling `trySilentLogin` is done the same as `login`, except for the function name.
-```javascript
-window.plugins.googleplus.trySilentLogin(
-    {
-      'scopes': '... ', // optional - space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-      'webClientId': 'client id of the web app/server side', // optional - clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-      'offline': true, // Optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-    },
-    function (obj) {
-      alert(JSON.stringify(obj)); // do something useful instead of alerting
-    },
-    function (msg) {
-      alert('error: ' + msg);
-    }
-);
-```
-
-It is strongly recommended that trySilentLogin is implemented with the same options as login, to avoid any potential complications.
 
 ### logout
 This will clear the OAuth2 token.
