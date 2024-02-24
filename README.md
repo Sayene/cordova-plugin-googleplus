@@ -8,7 +8,7 @@
 * PLAY_SERVICES_VERSION updated from 15.0.1 to 20.3.0
 * PLAY_SERVICES_IDENTITY_VERSION set to 18.0.1
 * GOOGLE_SIGN_IN_VERSION updated from ~> 5.0.2 to ~> 6.2.3
-* GOOGLE_UTILITIES_VERSION updated from ~> 7.2.2 to ~>  7.11.5
+* GOOGLE_UTILITIES_VERSION updated from ~> 7.2.2 to ~>  7.8
 * GOOGLE_SIGN_IN_VERSION, GOOGLE_UTILITIES_VERSION can now be set via extr variables
 * (!) REMOVED on iOS: isAvailable, trySilentLogin, share_unused
 
