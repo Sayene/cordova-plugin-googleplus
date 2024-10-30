@@ -1,3 +1,7 @@
+## v 9.0.4
+* updated PLAY_SERVICES_AUTH_VERSION from 21.0.0 to 21.2.0
+* updated GOOGLE_UTILITIES_VERSION from 7.8 to 8.0.1
+
 ## v 9.0.3
 * updated PLAY_SERVICES_AUTH_VERSION from 21.0.0 to 21.2.0
 * updated GOOGLE_UTILITIES_VERSION from 7.8 to 7.13.3
